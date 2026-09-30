@@ -9,7 +9,7 @@ An employee start to work on a project for an old existing associate company. He
   
 The input of the program is all the documents found in the database along with their features and trustscore.  
   
-The output is a agregation of texts extracted from the documents, solving the employee's demand. 
+The output is an agregation of texts extracted from the documents, solving the employee's demand. The employee can ask details about the source of each element of the output.
 
 The assumptions of this project are the following:  
 * The user easily find all the document related to his demand in the database.
