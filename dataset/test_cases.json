@@ -1,0 +1,982 @@
+{
+  "cases": [
+    {
+      "id": "company_identity",
+      "name": "Redundant sources + typo in VAT number + legacy address + homonymous entity",
+      "input": {
+        "question": "What are the legal name, VAT number and current registered address of our Belgian client Norvik Engineering NV (Project Helios)?",
+        "documents": [
+          {
+            "id": "DOC-101",
+            "title": "Master Data - Client record: Norvik Engineering NV",
+            "type": "document",
+            "file": "documents/DOC-101_client_master_record.pdf",
+            "created_date": "2024-02-12",
+            "last_modified_date": "2026-09-02",
+            "owner_id": "OWN-107",
+            "country": "Belgium",
+            "trust_score": 91,
+            "trust_reasons": [
+              "Last modified less than 1 month ago",
+              "Owner identified",
+              "Applicable to Belgium",
+              "Validated by the Finance master data team",
+              "Consistent with other sources"
+            ]
+          },
+          {
+            "id": "DOC-102",
+            "title": "Master Services Agreement Brightline - Norvik: parties and definitions",
+            "type": "document",
+            "file": "documents/DOC-102_msa_parties.pdf",
+            "created_date": "2025-04-10",
+            "last_modified_date": "2025-04-10",
+            "owner_id": "OWN-105",
+            "country": "Belgium",
+            "trust_score": 84,
+            "trust_reasons": [
+              "Signed contract",
+              "Owner identified",
+              "Applicable to Belgium",
+              "Consistent with other sources"
+            ]
+          },
+          {
+            "id": "DOC-103",
+            "title": "Email - Invoice INV-2026-0412 rejected: VAT mismatch",
+            "type": "email",
+            "file": "documents/DOC-103_email_invoice_rejected.pdf",
+            "created_date": "2026-06-18",
+            "last_modified_date": "2026-06-18",
+            "owner_id": "OWN-102",
+            "country": "Belgium",
+            "trust_score": 68,
+            "trust_reasons": [
+              "Last modified less than 4 months ago",
+              "Owner identified",
+              "Informal source (email)",
+              "Applicable to Belgium",
+              "Mentions an erroneous VAT number (typo on an invoice)"
+            ]
+          },
+          {
+            "id": "DOC-104",
+            "title": "CRM export - Norvik (legacy)",
+            "type": "document",
+            "file": "documents/DOC-104_crm_export_legacy.pdf",
+            "created_date": "2023-11-06",
+            "last_modified_date": "2023-11-06",
+            "owner_id": null,
+            "country": "Belgium",
+            "trust_score": 39,
+            "trust_reasons": [
+              "Last modified more than 2 years ago",
+              "No owner identified",
+              "Contradicts a more recent document (DOC-101)"
+            ]
+          },
+          {
+            "id": "DOC-105",
+            "title": "Teams discussion - Norvik relocation to Ghent",
+            "type": "teams_discussion",
+            "file": "documents/DOC-105_teams_relocation.pdf",
+            "created_date": "2025-03-12",
+            "last_modified_date": "2025-03-12",
+            "owner_id": "OWN-103",
+            "country": "Belgium",
+            "trust_score": 72,
+            "trust_reasons": [
+              "Last modified more than 1 year ago",
+              "Owner identified",
+              "Informal source (Teams discussion)",
+              "Applicable to Belgium",
+              "Consistent with DOC-101"
+            ]
+          },
+          {
+            "id": "DOC-106",
+            "title": "Company profile - Norvik France SAS",
+            "type": "document",
+            "file": "documents/DOC-106_norvik_france_profile.pdf",
+            "created_date": "2026-02-09",
+            "last_modified_date": "2026-02-09",
+            "owner_id": "OWN-103",
+            "country": "France",
+            "trust_score": 80,
+            "trust_reasons": [
+              "Last modified less than 8 months ago",
+              "Owner identified",
+              "Applicable to France, not Belgium",
+              "Different legal entity (subsidiary)"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "confidence_level": "high",
+        "documents_that_must_be_used": [
+          "DOC-101",
+          "DOC-102"
+        ],
+        "optional_documents": [
+          "DOC-103",
+          "DOC-105"
+        ],
+        "documents_that_must_not_be_used": [
+          "DOC-104",
+          "DOC-106"
+        ],
+        "expected_contradictions": [
+          {
+            "between": [
+              "DOC-101",
+              "DOC-104"
+            ],
+            "subject": "registered address (Ghent vs Antwerp)",
+            "expected_resolution": "DOC-101 retained: score 91 vs 39, DOC-104 is a legacy export with no owner"
+          },
+          {
+            "between": [
+              "DOC-101",
+              "DOC-103"
+            ],
+            "subject": "VAT number (BE 0456.789.123 vs typo BE 0456.789.132)",
+            "expected_resolution": "DOC-101 retained: the email only quotes the wrong number to report an error"
+          }
+        ],
+        "key_points_of_the_answer": [
+          "legal name: Norvik Engineering NV",
+          "VAT number: BE 0456.789.123",
+          "registered address: Kortrijksesteenweg 1120, 9051 Ghent (since 1 March 2025)"
+        ],
+        "must_contain": [
+          "Norvik Engineering NV",
+          "0456.789.123",
+          "Kortrijksesteenweg 1120"
+        ],
+        "must_not_contain": [
+          "0456.789.132",
+          "Noorderlaan",
+          "Lille",
+          "FR 12"
+        ],
+        "to_check": "The VAT typo, the old Antwerp address and the French subsidiary (DOC-106) never appear as valid facts."
+      }
+    },
+    {
+      "id": "project_status",
+      "name": "Project status: outdated reports, baseline plan, unverified client email",
+      "input": {
+        "question": "What is the current status of Project Helios (ERP migration for Norvik Engineering NV): which milestones are completed, what is the forecast go-live date and what are the main open risks?",
+        "documents": [
+          {
+            "id": "DOC-111",
+            "title": "Steering Committee minutes - 18 September 2026",
+            "type": "meeting_minutes",
+            "file": "documents/DOC-111_steerco_minutes_sept.pdf",
+            "created_date": "2026-09-18",
+            "last_modified_date": "2026-09-21",
+            "owner_id": "OWN-101",
+            "country": "Belgium",
+            "trust_score": 90,
+            "trust_reasons": [
+              "Last modified less than 1 month ago",
+              "Owner identified",
+              "Applicable to Belgium",
+              "Approved by the steering committee",
+              "Consistent with DOC-112"
+            ]
+          },
+          {
+            "id": "DOC-112",
+            "title": "Weekly status report - Week 38 2026",
+            "type": "document",
+            "file": "documents/DOC-112_weekly_status_w38.pdf",
+            "created_date": "2026-09-21",
+            "last_modified_date": "2026-09-21",
+            "owner_id": "OWN-101",
+            "country": "Belgium",
+            "trust_score": 84,
+            "trust_reasons": [
+              "Last modified less than 1 month ago",
+              "Owner identified",
+              "Applicable to Belgium",
+              "Consistent with DOC-111"
+            ]
+          },
+          {
+            "id": "DOC-113",
+            "title": "Weekly status report - Week 31 2026",
+            "type": "document",
+            "file": "documents/DOC-113_weekly_status_w31.pdf",
+            "created_date": "2026-08-03",
+            "last_modified_date": "2026-08-03",
+            "owner_id": "OWN-101",
+            "country": "Belgium",
+            "trust_score": 52,
+            "trust_reasons": [
+              "Last modified less than 3 months ago",
+              "Owner identified",
+              "Superseded by more recent status reports",
+              "Contradicts more recent documents (DOC-111, DOC-112)"
+            ]
+          },
+          {
+            "id": "DOC-114",
+            "title": "Project plan - Baseline v1",
+            "type": "document",
+            "file": "documents/DOC-114_project_plan_baseline_v1.pdf",
+            "created_date": "2025-05-12",
+            "last_modified_date": "2025-05-12",
+            "owner_id": "OWN-101",
+            "country": "Belgium",
+            "trust_score": 47,
+            "trust_reasons": [
+              "Last modified more than 1 year ago",
+              "Owner identified",
+              "Superseded by change request CR-07",
+              "Planned dates no longer valid"
+            ]
+          },
+          {
+            "id": "DOC-115",
+            "title": "Email - Norvik sponsor: go-live expectations",
+            "type": "email",
+            "file": "documents/DOC-115_email_sponsor_expectations.pdf",
+            "created_date": "2026-09-05",
+            "last_modified_date": "2026-09-05",
+            "owner_id": null,
+            "country": "Belgium",
+            "trust_score": 55,
+            "trust_reasons": [
+              "Last modified less than 1 month ago",
+              "No owner identified in our organization",
+              "Informal source (forwarded email)",
+              "Content not verified",
+              "Contradicts DOC-111"
+            ]
+          },
+          {
+            "id": "DOC-116",
+            "title": "Teams discussion - MES interface test results",
+            "type": "teams_discussion",
+            "file": "documents/DOC-116_teams_mes_interface.pdf",
+            "created_date": "2026-09-24",
+            "last_modified_date": "2026-09-24",
+            "owner_id": "OWN-106",
+            "country": "Belgium",
+            "trust_score": 71,
+            "trust_reasons": [
+              "Last modified less than 1 month ago",
+              "Owner identified",
+              "Informal source (Teams discussion)",
+              "Applicable to Belgium",
+              "Consistent with DOC-111"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "confidence_level": "high",
+        "documents_that_must_be_used": [
+          "DOC-111",
+          "DOC-112"
+        ],
+        "optional_documents": [
+          "DOC-116"
+        ],
+        "documents_that_must_not_be_used": [
+          "DOC-114"
+        ],
+        "expected_contradictions": [
+          {
+            "between": [
+              "DOC-111",
+              "DOC-113"
+            ],
+            "subject": "forecast go-live (23/11/2026 vs 14/09/2026) and duplicates rate",
+            "expected_resolution": "DOC-111/DOC-112 retained (scores 90/84 vs 52, week 31 report superseded)"
+          },
+          {
+            "between": [
+              "DOC-111",
+              "DOC-115"
+            ],
+            "subject": "go-live date (23 Nov vs 19 Oct 2026)",
+            "expected_resolution": "DOC-111 retained: the email is an unverified forwarded message (55)"
+          }
+        ],
+        "key_points_of_the_answer": [
+          "M1, M2, M3 completed; M4 (UAT) in progress (70% scripts executed, end 16 Oct 2026)",
+          "forecast go-live: 23 November 2026 (after CR-07)",
+          "risks: supplier data quality (12% duplicates), key-user availability, MES interface"
+        ],
+        "must_contain": [
+          "23 November 2026|23/11/2026",
+          "M3",
+          "12%"
+        ],
+        "must_not_contain": [
+          "19 October 2026",
+          "14/09/2026",
+          "14 September 2026",
+          "20% duplicates"
+        ],
+        "to_check": "Old go-live dates (14 Sept, 19 Oct) are never presented as current."
+      }
+    },
+    {
+      "id": "project_budget",
+      "name": "Budget: signed change request, rounded email figures and an arithmetic error",
+      "input": {
+        "question": "What is the current approved budget of Project Helios, how much has been invoiced so far and how much remains to be invoiced?",
+        "documents": [
+          {
+            "id": "DOC-121",
+            "title": "Project financial report - September 2026",
+            "type": "document",
+            "file": "documents/DOC-121_financial_report_sept.pdf",
+            "created_date": "2026-09-01",
+            "last_modified_date": "2026-09-15",
+            "owner_id": "OWN-102",
+            "country": "Belgium",
+            "trust_score": 89,
+            "trust_reasons": [
+              "Last modified less than 1 month ago",
+              "Owner identified",
+              "Applicable to Belgium",
+              "Consistent with DOC-122 and DOC-123"
+            ]
+          },
+          {
+            "id": "DOC-122",
+            "title": "Change Request CR-07 - Signed",
+            "type": "document",
+            "file": "documents/DOC-122_change_request_cr07.pdf",
+            "created_date": "2026-05-28",
+            "last_modified_date": "2026-06-05",
+            "owner_id": "OWN-101",
+            "country": "Belgium",
+            "trust_score": 85,
+            "trust_reasons": [
+              "Last modified less than 4 months ago",
+              "Owner identified",
+              "Signed by both parties",
+              "Applicable to Belgium"
+            ]
+          },
+          {
+            "id": "DOC-123",
+            "title": "Invoice register extract - Norvik Engineering NV",
+            "type": "spreadsheet",
+            "file": "documents/DOC-123_invoice_register.pdf",
+            "created_date": "2026-09-10",
+            "last_modified_date": "2026-09-10",
+            "owner_id": "OWN-102",
+            "country": "Belgium",
+            "trust_score": 80,
+            "trust_reasons": [
+              "Last modified less than 1 month ago",
+              "Owner identified",
+              "Extract from the accounting system",
+              "Consistent with DOC-121"
+            ]
+          },
+          {
+            "id": "DOC-124",
+            "title": "Email - Helios budget update to Norvik",
+            "type": "email",
+            "file": "documents/DOC-124_email_budget_update.pdf",
+            "created_date": "2026-07-02",
+            "last_modified_date": "2026-07-02",
+            "owner_id": "OWN-103",
+            "country": "Belgium",
+            "trust_score": 57,
+            "trust_reasons": [
+              "Last modified less than 3 months ago",
+              "Owner identified",
+              "Informal source (email)",
+              "Contains rounded figures",
+              "Contradicts DOC-121 and DOC-122"
+            ]
+          },
+          {
+            "id": "DOC-125",
+            "title": "Proposal - Helios ERP migration (v1)",
+            "type": "presentation",
+            "file": "documents/DOC-125_proposal_v1.pdf",
+            "created_date": "2025-02-18",
+            "last_modified_date": "2025-02-18",
+            "owner_id": "OWN-103",
+            "country": "Belgium",
+            "trust_score": 46,
+            "trust_reasons": [
+              "Last modified more than 1 year ago",
+              "Owner identified",
+              "Superseded by the signed contract and CR-07",
+              "Budget figures no longer valid"
+            ]
+          },
+          {
+            "id": "DOC-126",
+            "title": "Budget tracking sheet v3 - working notes",
+            "type": "document",
+            "file": "documents/DOC-126_budget_tracking_v3.pdf",
+            "created_date": "2026-08-20",
+            "last_modified_date": "2026-09-03",
+            "owner_id": "OWN-104",
+            "country": "Belgium",
+            "trust_score": 60,
+            "trust_reasons": [
+              "Last modified less than 1 month ago",
+              "Owner identified (junior analyst)",
+              "Informal working file, not reviewed",
+              "Arithmetic inconsistency detected"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "confidence_level": "high",
+        "documents_that_must_be_used": [
+          "DOC-121",
+          "DOC-123"
+        ],
+        "optional_documents": [
+          "DOC-122"
+        ],
+        "documents_that_must_not_be_used": [
+          "DOC-125"
+        ],
+        "expected_contradictions": [
+          {
+            "between": [
+              "DOC-121",
+              "DOC-124"
+            ],
+            "subject": "budget (480,000 vs 450,000) and invoiced amount (273,000 vs ~270,000)",
+            "expected_resolution": "DOC-121 retained: controller report (89) vs informal email with rounded figures (57)"
+          },
+          {
+            "between": [
+              "DOC-121",
+              "DOC-126"
+            ],
+            "subject": "invoiced (273,000 vs 263,000) and remaining (207,000 vs 217,000)",
+            "expected_resolution": "DOC-121 retained; DOC-126 contains an addition error (63,000+84,000+126,000 = 273,000)"
+          }
+        ],
+        "key_points_of_the_answer": [
+          "approved budget: EUR 480,000 (420,000 + CR-07 60,000)",
+          "invoiced to date: EUR 273,000 (M1 63,000 + M2 84,000 + M3 126,000)",
+          "remaining to invoice: EUR 207,000"
+        ],
+        "must_contain": [
+          "480,000",
+          "273,000",
+          "207,000"
+        ],
+        "must_not_contain": [
+          "450,000",
+          "263,000",
+          "217,000",
+          "270,000"
+        ],
+        "to_check": "The wrong total (263,000) and the rounded/draft figures are never used."
+      }
+    },
+    {
+      "id": "governance_contacts",
+      "name": "Governance: sponsor change, outdated kick-off deck, newer but less trusted info",
+      "input": {
+        "question": "Who is the current project sponsor at Norvik Engineering NV for Project Helios, who is the technical contact for the ERP interfaces and what is the escalation path for a blocking issue?",
+        "documents": [
+          {
+            "id": "DOC-131",
+            "title": "Project governance charter v2.1",
+            "type": "document",
+            "file": "documents/DOC-131_governance_charter.pdf",
+            "created_date": "2025-06-02",
+            "last_modified_date": "2026-05-20",
+            "owner_id": "OWN-110",
+            "country": "Belgium",
+            "trust_score": 86,
+            "trust_reasons": [
+              "Last modified less than 5 months ago",
+              "Owner identified",
+              "Applicable to Belgium",
+              "Approved by both sponsors",
+              "Consistent with DOC-133"
+            ]
+          },
+          {
+            "id": "DOC-132",
+            "title": "Kick-off presentation - Project Helios",
+            "type": "presentation",
+            "file": "documents/DOC-132_kickoff_deck.pdf",
+            "created_date": "2025-06-10",
+            "last_modified_date": "2025-06-10",
+            "owner_id": "OWN-101",
+            "country": "Belgium",
+            "trust_score": 55,
+            "trust_reasons": [
+              "Last modified more than 1 year ago",
+              "Owner identified",
+              "Contains roles that have since changed",
+              "Partially superseded by DOC-131"
+            ]
+          },
+          {
+            "id": "DOC-133",
+            "title": "Email - Change of sponsor at Norvik",
+            "type": "email",
+            "file": "documents/DOC-133_email_sponsor_change.pdf",
+            "created_date": "2026-04-28",
+            "last_modified_date": "2026-04-28",
+            "owner_id": "OWN-103",
+            "country": "Belgium",
+            "trust_score": 75,
+            "trust_reasons": [
+              "Last modified less than 6 months ago",
+              "Owner identified",
+              "Informal source (email)",
+              "Applicable to Belgium",
+              "Consistent with DOC-131"
+            ]
+          },
+          {
+            "id": "DOC-134",
+            "title": "Client contact list export",
+            "type": "spreadsheet",
+            "file": "documents/DOC-134_client_contact_list.pdf",
+            "created_date": "2025-10-01",
+            "last_modified_date": "2025-10-01",
+            "owner_id": null,
+            "country": "Belgium",
+            "trust_score": 41,
+            "trust_reasons": [
+              "Last modified more than 11 months ago",
+              "No owner identified",
+              "Contains contacts who have left the company"
+            ]
+          },
+          {
+            "id": "DOC-135",
+            "title": "Teams discussion - Pieter Claes availability",
+            "type": "teams_discussion",
+            "file": "documents/DOC-135_teams_pieter_leave.pdf",
+            "created_date": "2026-07-08",
+            "last_modified_date": "2026-07-08",
+            "owner_id": "OWN-101",
+            "country": "Belgium",
+            "trust_score": 70,
+            "trust_reasons": [
+              "Last modified less than 3 months ago",
+              "Owner identified",
+              "Informal source (Teams discussion)",
+              "Applicable to Belgium",
+              "Announces a temporary change not yet in DOC-131"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "confidence_level": "medium",
+        "documents_that_must_be_used": [
+          "DOC-131",
+          "DOC-135"
+        ],
+        "optional_documents": [
+          "DOC-133"
+        ],
+        "documents_that_must_not_be_used": [
+          "DOC-134"
+        ],
+        "expected_contradictions": [
+          {
+            "between": [
+              "DOC-131",
+              "DOC-132"
+            ],
+            "subject": "sponsor (Hilde Vermeulen vs Jan De Smet) and escalation delay (2 vs 5 working days)",
+            "expected_resolution": "DOC-131 retained (86 vs 55), kick-off deck outdated"
+          },
+          {
+            "between": [
+              "DOC-131",
+              "DOC-135"
+            ],
+            "subject": "technical contact (Pieter Claes vs interim Sofie Wouters)",
+            "expected_resolution": "UNRESOLVED on purpose: DOC-135 is more recent but less trusted, both must be shown and flagged"
+          }
+        ],
+        "key_points_of_the_answer": [
+          "sponsor: Hilde Vermeulen (CFO), replaced Jan De Smet in May 2026",
+          "technical contact: Pieter Claes, but interim Sofie Wouters until 30 Nov 2026 (to be confirmed)",
+          "escalation: project managers, then sponsors after 2 working days"
+        ],
+        "must_contain": [
+          "Hilde Vermeulen",
+          "Sofie Wouters",
+          "2 working days"
+        ],
+        "must_not_contain": [
+          "Chief Operating Officer",
+          "5 working days"
+        ],
+        "to_check": "The outdated sponsor and 5-day escalation are not used; the interim contact is shown with a warning instead of being silently dropped."
+      }
+    },
+    {
+      "id": "contract_terms",
+      "name": "Contract: amendment overrides original terms, speculation in chat, other entity's contract",
+      "input": {
+        "question": "What are the payment terms and the late-delivery penalty in the contract between Brightline and our Belgian client Norvik Engineering NV?",
+        "documents": [
+          {
+            "id": "DOC-141",
+            "title": "Master Services Agreement Norvik Engineering NV - Terms and conditions",
+            "type": "document",
+            "file": "documents/DOC-141_msa_terms.pdf",
+            "created_date": "2025-04-10",
+            "last_modified_date": "2025-04-10",
+            "owner_id": "OWN-105",
+            "country": "Belgium",
+            "trust_score": 78,
+            "trust_reasons": [
+              "Signed contract",
+              "Owner identified",
+              "Applicable to Belgium",
+              "Payment and penalty clauses amended by Amendment 1 (DOC-142)"
+            ]
+          },
+          {
+            "id": "DOC-142",
+            "title": "Amendment 1 to the Master Services Agreement",
+            "type": "document",
+            "file": "documents/DOC-142_msa_amendment_1.pdf",
+            "created_date": "2026-01-20",
+            "last_modified_date": "2026-01-20",
+            "owner_id": "OWN-105",
+            "country": "Belgium",
+            "trust_score": 88,
+            "trust_reasons": [
+              "Last modified less than 9 months ago",
+              "Signed contract",
+              "Owner identified",
+              "Applicable to Belgium",
+              "Most recent contractual document"
+            ]
+          },
+          {
+            "id": "DOC-143",
+            "title": "Email - Summary of contract terms for the delivery team",
+            "type": "email",
+            "file": "documents/DOC-143_email_contract_summary.pdf",
+            "created_date": "2026-02-05",
+            "last_modified_date": "2026-02-05",
+            "owner_id": "OWN-105",
+            "country": "Belgium",
+            "trust_score": 72,
+            "trust_reasons": [
+              "Last modified less than 8 months ago",
+              "Owner identified",
+              "Informal source (email)",
+              "Applicable to Belgium",
+              "Consistent with DOC-142"
+            ]
+          },
+          {
+            "id": "DOC-144",
+            "title": "Commercial proposal - Helios (v1)",
+            "type": "presentation",
+            "file": "documents/DOC-144_proposal_commercial_v1.pdf",
+            "created_date": "2025-02-18",
+            "last_modified_date": "2025-02-18",
+            "owner_id": "OWN-103",
+            "country": "Belgium",
+            "trust_score": 40,
+            "trust_reasons": [
+              "Last modified more than 1 year ago",
+              "Owner identified",
+              "Superseded by the signed contract",
+              "Commercial terms no longer valid"
+            ]
+          },
+          {
+            "id": "DOC-145",
+            "title": "Master Services Agreement - Norvik France SAS",
+            "type": "document",
+            "file": "documents/DOC-145_msa_norvik_france.pdf",
+            "created_date": "2025-09-15",
+            "last_modified_date": "2025-09-15",
+            "owner_id": "OWN-105",
+            "country": "France",
+            "trust_score": 82,
+            "trust_reasons": [
+              "Signed contract",
+              "Owner identified",
+              "Applicable to France, not Belgium",
+              "Different legal entity (subsidiary)"
+            ]
+          },
+          {
+            "id": "DOC-146",
+            "title": "Teams discussion - Norvik payment terms",
+            "type": "teams_discussion",
+            "file": "documents/DOC-146_teams_payment_terms.pdf",
+            "created_date": "2026-03-10",
+            "last_modified_date": "2026-03-10",
+            "owner_id": "OWN-103",
+            "country": "Belgium",
+            "trust_score": 55,
+            "trust_reasons": [
+              "Last modified less than 8 months ago",
+              "Owner identified",
+              "Informal source (Teams discussion)",
+              "Speculative content, contradicts DOC-142"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "confidence_level": "high",
+        "documents_that_must_be_used": [
+          "DOC-142"
+        ],
+        "optional_documents": [
+          "DOC-143"
+        ],
+        "documents_that_must_not_be_used": [
+          "DOC-144",
+          "DOC-145",
+          "DOC-146"
+        ],
+        "expected_contradictions": [
+          {
+            "between": [
+              "DOC-141",
+              "DOC-142"
+            ],
+            "subject": "payment delay (45 vs 30 days) and penalty (1%/5% vs 0.5%/10%)",
+            "expected_resolution": "DOC-142 retained: it explicitly replaces Articles 8 and 11 and is more recent"
+          }
+        ],
+        "key_points_of_the_answer": [
+          "payment within 30 days of invoice date",
+          "penalty 0.5% of milestone value per full week of delay, capped at 10%",
+          "applies since Amendment 1 (effective 1 February 2026)"
+        ],
+        "must_contain": [
+          "30 days",
+          "0.5%",
+          "10%"
+        ],
+        "must_not_contain": [
+          "45 days",
+          "1% of the milestone",
+          "1% per week",
+          "60 days",
+          "2% per week",
+          "1.5%"
+        ],
+        "to_check": "The superseded terms of the original MSA, the French contract and the speculative Teams question (DOC-146, a question is not an assertion) are never given as valid."
+      }
+    },
+    {
+      "id": "certifications",
+      "name": "Certifications: self-declared data and outdated marketing claim (medium confidence)",
+      "input": {
+        "question": "Which ISO certifications does Norvik Engineering NV currently hold and when does each of them expire?",
+        "documents": [
+          {
+            "id": "DOC-151",
+            "title": "Supplier qualification questionnaire - Norvik Engineering NV",
+            "type": "document",
+            "file": "documents/DOC-151_supplier_questionnaire.pdf",
+            "created_date": "2026-03-03",
+            "last_modified_date": "2026-03-03",
+            "owner_id": "OWN-108",
+            "country": "Belgium",
+            "trust_score": 66,
+            "trust_reasons": [
+              "Last modified less than 7 months ago",
+              "Owner identified",
+              "Applicable to Belgium",
+              "Self-declared by the client, not independently verified"
+            ]
+          },
+          {
+            "id": "DOC-152",
+            "title": "Norvik website - Quality page (archived extract)",
+            "type": "document",
+            "file": "documents/DOC-152_website_quality_page.pdf",
+            "created_date": "2024-09-16",
+            "last_modified_date": "2024-09-16",
+            "owner_id": null,
+            "country": "Belgium",
+            "trust_score": 54,
+            "trust_reasons": [
+              "Last modified more than 2 years ago",
+              "No owner identified",
+              "Marketing content",
+              "Contradicts DOC-151 on ISO 27001"
+            ]
+          },
+          {
+            "id": "DOC-153",
+            "title": "Email - Norvik Quality Manager: ISO 14001 recertification",
+            "type": "email",
+            "file": "documents/DOC-153_email_iso14001_audit.pdf",
+            "created_date": "2026-08-19",
+            "last_modified_date": "2026-08-19",
+            "owner_id": "OWN-108",
+            "country": "Belgium",
+            "trust_score": 70,
+            "trust_reasons": [
+              "Last modified less than 2 months ago",
+              "Owner identified",
+              "Informal source (email)",
+              "Applicable to Belgium",
+              "Consistent with DOC-151"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "confidence_level": "medium",
+        "documents_that_must_be_used": [
+          "DOC-151",
+          "DOC-153"
+        ],
+        "optional_documents": [],
+        "documents_that_must_not_be_used": [],
+        "expected_contradictions": [
+          {
+            "between": [
+              "DOC-151",
+              "DOC-152"
+            ],
+            "subject": "ISO 27001 (not certified vs certified)",
+            "expected_resolution": "DOC-151 retained: more recent and higher score; the website page is an old marketing claim"
+          }
+        ],
+        "key_points_of_the_answer": [
+          "ISO 9001 valid until 14 June 2027",
+          "ISO 14001 valid until 10 December 2026 (recertification audit 18 Nov 2026)",
+          "ISO 27001: not certified"
+        ],
+        "must_contain": [
+          "14 June 2027",
+          "10 December 2026",
+          "not certified"
+        ],
+        "must_not_contain": [
+          "ISO 9001, ISO 14001 and ISO 27001 certified"
+        ],
+        "to_check": "Confidence stays MEDIUM (best score 70, self-declared data) and ISO 27001 is not claimed."
+      }
+    },
+    {
+      "id": "insufficient_financials",
+      "name": "Insufficient: weak, outdated or irrelevant documents, the system must refuse",
+      "input": {
+        "question": "What was the annual revenue of Norvik Engineering NV in 2025 and how many employees work in its Japanese subsidiary?",
+        "documents": [
+          {
+            "id": "DOC-161",
+            "title": "Corporate brochure - Norvik Engineering (2021)",
+            "type": "presentation",
+            "file": "documents/DOC-161_brochure_2021.pdf",
+            "created_date": "2022-01-20",
+            "last_modified_date": "2022-01-20",
+            "owner_id": null,
+            "country": "Belgium",
+            "trust_score": 39,
+            "trust_reasons": [
+              "Last modified more than 4 years ago",
+              "No owner identified",
+              "Marketing content",
+              "Figures refer to 2021, not 2025"
+            ]
+          },
+          {
+            "id": "DOC-162",
+            "title": "Press article - Norvik opens a site in Lille",
+            "type": "document",
+            "file": "documents/DOC-162_press_lille_site.pdf",
+            "created_date": "2024-03-12",
+            "last_modified_date": "2024-03-12",
+            "owner_id": null,
+            "country": "France",
+            "trust_score": 34,
+            "trust_reasons": [
+              "Last modified more than 2 years ago",
+              "No owner identified",
+              "Applicable to France, not Belgium",
+              "Does not mention any Japanese subsidiary"
+            ]
+          },
+          {
+            "id": "DOC-163",
+            "title": "Teams discussion - Norvik size",
+            "type": "teams_discussion",
+            "file": "documents/DOC-163_teams_norvik_size.pdf",
+            "created_date": "2026-03-04",
+            "last_modified_date": "2026-03-04",
+            "owner_id": "OWN-103",
+            "country": "Belgium",
+            "trust_score": 33,
+            "trust_reasons": [
+              "Last modified less than 8 months ago",
+              "Owner identified",
+              "Informal source (Teams discussion)",
+              "Figures given from memory, no source cited"
+            ]
+          },
+          {
+            "id": "DOC-164",
+            "title": "Newsletter - Industry trends in automation (2024)",
+            "type": "document",
+            "file": "documents/DOC-164_newsletter_automation.pdf",
+            "created_date": "2024-06-01",
+            "last_modified_date": "2024-06-01",
+            "owner_id": null,
+            "country": "Belgium",
+            "trust_score": 47,
+            "trust_reasons": [
+              "Last modified more than 2 years ago",
+              "No owner identified",
+              "Mentions Norvik only in passing, no financial data"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "confidence_level": "insufficient",
+        "documents_that_must_be_used": [],
+        "optional_documents": [],
+        "documents_that_must_not_be_used": [
+          "DOC-161",
+          "DOC-162",
+          "DOC-163",
+          "DOC-164"
+        ],
+        "expected_contradictions": [],
+        "key_points_of_the_answer": [
+          "the system gives NO figure",
+          "it explains that the best score (47) is below the threshold of 50 and that no document covers 2025 revenue or a Japanese subsidiary",
+          "it recommends an expert (suggested: OWN-109, credit risk analyst)"
+        ],
+        "must_contain": [],
+        "must_not_contain": [
+          "92 million",
+          "100M",
+          "45 people"
+        ],
+        "suggested_expert_id": "OWN-109",
+        "to_check": "The guardrail blocks generation BEFORE any PDF is read or any AI is called; the 2021 figures and the vague Teams guess are not proposed."
+      }
+    }
+  ]
+}

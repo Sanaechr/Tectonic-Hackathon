@@ -1,0 +1,247 @@
+{
+  "owners": [
+    {
+      "owner_id": "OWN-101",
+      "name": "Nathalie Declercq",
+      "job_title": "Project Manager - Project Helios",
+      "department": "Delivery",
+      "country": "Belgium",
+      "years_of_experience": 9,
+      "seniority_level": "senior",
+      "expertise_domains": [
+        "Project status reporting",
+        "Milestones and planning",
+        "Risk management"
+      ],
+      "languages": [
+        "Dutch",
+        "French",
+        "English"
+      ],
+      "email": "nathalie.declercq@example.com",
+      "documents_owned": [
+        "DOC-111",
+        "DOC-112",
+        "DOC-113",
+        "DOC-114",
+        "DOC-122",
+        "DOC-132",
+        "DOC-135"
+      ]
+    },
+    {
+      "owner_id": "OWN-102",
+      "name": "Bart Willems",
+      "job_title": "Finance Controller",
+      "department": "Finance",
+      "country": "Belgium",
+      "years_of_experience": 10,
+      "seniority_level": "senior",
+      "expertise_domains": [
+        "Project budgets",
+        "Invoicing and payments",
+        "Financial reporting"
+      ],
+      "languages": [
+        "Dutch",
+        "English",
+        "French"
+      ],
+      "email": "bart.willems@example.com",
+      "documents_owned": [
+        "DOC-103",
+        "DOC-121",
+        "DOC-123"
+      ]
+    },
+    {
+      "owner_id": "OWN-103",
+      "name": "Élodie Fontaine",
+      "job_title": "Key Account Manager - Norvik",
+      "department": "Sales",
+      "country": "Belgium",
+      "years_of_experience": 8,
+      "seniority_level": "senior",
+      "expertise_domains": [
+        "Client relationship",
+        "Client company profile",
+        "Client contacts"
+      ],
+      "languages": [
+        "French",
+        "English",
+        "Dutch"
+      ],
+      "email": "elodie.fontaine@example.com",
+      "documents_owned": [
+        "DOC-105",
+        "DOC-106",
+        "DOC-124",
+        "DOC-125",
+        "DOC-133",
+        "DOC-144",
+        "DOC-146",
+        "DOC-163"
+      ]
+    },
+    {
+      "owner_id": "OWN-104",
+      "name": "Kevin Jacobs",
+      "job_title": "Junior Project Analyst",
+      "department": "Delivery",
+      "country": "Belgium",
+      "years_of_experience": 2,
+      "seniority_level": "junior",
+      "expertise_domains": [
+        "Budget tracking",
+        "Reporting support"
+      ],
+      "languages": [
+        "Dutch",
+        "English"
+      ],
+      "email": "kevin.jacobs@example.com",
+      "documents_owned": [
+        "DOC-126"
+      ]
+    },
+    {
+      "owner_id": "OWN-105",
+      "name": "Anouk Verhaegen",
+      "job_title": "Legal Counsel",
+      "department": "Legal",
+      "country": "Belgium",
+      "years_of_experience": 12,
+      "seniority_level": "senior",
+      "expertise_domains": [
+        "Contracts and amendments",
+        "Penalties and liability",
+        "Payment terms"
+      ],
+      "languages": [
+        "Dutch",
+        "French",
+        "English"
+      ],
+      "email": "anouk.verhaegen@example.com",
+      "documents_owned": [
+        "DOC-102",
+        "DOC-141",
+        "DOC-142",
+        "DOC-143",
+        "DOC-145"
+      ]
+    },
+    {
+      "owner_id": "OWN-106",
+      "name": "Dimitri Lambert",
+      "job_title": "Solution Architect",
+      "department": "Delivery",
+      "country": "Belgium",
+      "years_of_experience": 11,
+      "seniority_level": "senior",
+      "expertise_domains": [
+        "ERP integration",
+        "MES and system interfaces",
+        "Data migration"
+      ],
+      "languages": [
+        "French",
+        "English"
+      ],
+      "email": "dimitri.lambert@example.com",
+      "documents_owned": [
+        "DOC-116"
+      ]
+    },
+    {
+      "owner_id": "OWN-107",
+      "name": "Laura Stevens",
+      "job_title": "CRM and Master Data Administrator",
+      "department": "Finance",
+      "country": "Belgium",
+      "years_of_experience": 6,
+      "seniority_level": "mid",
+      "expertise_domains": [
+        "Client master data",
+        "CRM data quality",
+        "Client legal entities"
+      ],
+      "languages": [
+        "Dutch",
+        "English"
+      ],
+      "email": "laura.stevens@example.com",
+      "documents_owned": [
+        "DOC-101"
+      ]
+    },
+    {
+      "owner_id": "OWN-108",
+      "name": "Yannick Peeters",
+      "job_title": "Quality and Information Security Officer",
+      "department": "Quality",
+      "country": "Belgium",
+      "years_of_experience": 9,
+      "seniority_level": "senior",
+      "expertise_domains": [
+        "ISO certifications",
+        "Supplier qualification",
+        "Information security"
+      ],
+      "languages": [
+        "French",
+        "English",
+        "Dutch"
+      ],
+      "email": "yannick.peeters@example.com",
+      "documents_owned": [
+        "DOC-151",
+        "DOC-153"
+      ]
+    },
+    {
+      "owner_id": "OWN-109",
+      "name": "Marie Gilson",
+      "job_title": "Credit Risk Analyst",
+      "department": "Finance",
+      "country": "Belgium",
+      "years_of_experience": 7,
+      "seniority_level": "mid",
+      "expertise_domains": [
+        "Client financial statements",
+        "Credit risk",
+        "Company revenue and annual reports"
+      ],
+      "languages": [
+        "French",
+        "English"
+      ],
+      "email": "marie.gilson@example.com",
+      "documents_owned": []
+    },
+    {
+      "owner_id": "OWN-110",
+      "name": "Olivier Dupont",
+      "job_title": "Delivery Director",
+      "department": "Delivery",
+      "country": "Belgium",
+      "years_of_experience": 18,
+      "seniority_level": "expert",
+      "expertise_domains": [
+        "Project governance",
+        "Escalation management",
+        "Steering committees"
+      ],
+      "languages": [
+        "French",
+        "English",
+        "Dutch"
+      ],
+      "email": "olivier.dupont@example.com",
+      "documents_owned": [
+        "DOC-131"
+      ]
+    }
+  ]
+}
