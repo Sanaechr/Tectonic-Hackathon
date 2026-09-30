@@ -1,6 +1,7 @@
-pypdf>=6.13.0
+# Lecture des PDF (obligatoire) - 6.16.1 corrige les 12 CVE signalées par Aikido
+pypdf==6.16.1
 
-# Dépendance transitive de httpx/anthropic, figée au-dessus de la version vulnérable (CVE-2025-43859)
+# Dépendance transitive de httpx/anthropic, au-dessus de la version vulnérable (CVE-2025-43859)
 h11>=0.16.0
 
 # Réécriture des passages par un LLM avec --llm (optionnel, nécessite ANTHROPIC_API_KEY)
