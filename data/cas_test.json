@@ -1,0 +1,234 @@
+{
+  "cases": [
+    {
+      "id": "clear_case",
+      "name": "Clear case: 3 consistent documents, high scores",
+      "input": {
+        "question": "Until when can a Belgian client send its payroll variables (overtime, bonuses) so they are processed in the current month's payroll, and through which channel?",
+        "documents": [
+          {
+            "id": "DOC-001",
+            "title": "Procedure - Monthly payroll variables submission",
+            "type": "document",
+            "file": "documents/DOC-001_payroll_variables_procedure.pdf",
+            "created_date": "2025-11-05",
+            "last_modified_date": "2026-07-15",
+            "owner_id": "OWN-001",
+            "country": "Belgium",
+            "trust_score": 88,
+            "trust_reasons": [
+              "Last modified less than 3 months ago",
+              "Owner identified",
+              "Applicable to Belgium",
+              "Consistent with other sources"
+            ]
+          },
+          {
+            "id": "DOC-002",
+            "title": "Client Portal Guide - Variables module",
+            "type": "document",
+            "file": "documents/DOC-002_client_portal_variables_guide.pdf",
+            "created_date": "2025-03-10",
+            "last_modified_date": "2026-06-02",
+            "owner_id": "OWN-002",
+            "country": "Belgium",
+            "trust_score": 82,
+            "trust_reasons": [
+              "Last modified less than 4 months ago",
+              "Owner identified",
+              "Applicable to Belgium",
+              "Consistent with other sources"
+            ]
+          },
+          {
+            "id": "DOC-003",
+            "title": "Email - Reminder: payroll variable deadlines",
+            "type": "email",
+            "file": "documents/DOC-003_email_payroll_deadlines_reminder.pdf",
+            "created_date": "2026-04-20",
+            "last_modified_date": "2026-04-20",
+            "owner_id": "OWN-003",
+            "country": "Belgium",
+            "trust_score": 79,
+            "trust_reasons": [
+              "Last modified less than 6 months ago",
+              "Owner identified",
+              "Informal source (email)",
+              "Applicable to Belgium",
+              "Consistent with other sources"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "confidence_level": "high",
+        "documents_that_must_be_used": [
+          "DOC-001",
+          "DOC-002"
+        ],
+        "optional_documents": [
+          "DOC-003"
+        ],
+        "expected_contradictions": [],
+        "key_points_of_the_answer": [
+          "deadline: the 18th of the month at 12:00",
+          "channel: client portal, Variables module, no email",
+          "after the deadline: postponed to the following month (urgent exception with written approval of the team lead, if DOC-003 is used)"
+        ],
+        "to_check": "The answer combines DOC-001 and DOC-002 (and possibly DOC-003) without inventing anything."
+      }
+    },
+    {
+      "id": "contradictory_case",
+      "name": "Contradictory case: a reliable document and an outdated one contradict each other",
+      "input": {
+        "question": "What is the deadline and procedure to change the IBAN of an employee of a Belgian client before payroll?",
+        "documents": [
+          {
+            "id": "DOC-004",
+            "title": "Procedure - Changing an employee's bank details",
+            "type": "document",
+            "file": "documents/DOC-004_iban_change_procedure.pdf",
+            "created_date": "2025-09-01",
+            "last_modified_date": "2026-08-10",
+            "owner_id": "OWN-004",
+            "country": "Belgium",
+            "trust_score": 86,
+            "trust_reasons": [
+              "Last modified less than 2 months ago",
+              "Owner identified",
+              "Applicable to Belgium",
+              "Confirmed by another recent document (DOC-006)"
+            ]
+          },
+          {
+            "id": "DOC-005",
+            "title": "Note - IBAN change (old version)",
+            "type": "document",
+            "file": "documents/DOC-005_iban_change_old_note.pdf",
+            "created_date": "2023-02-14",
+            "last_modified_date": "2023-02-14",
+            "owner_id": null,
+            "country": "Belgium",
+            "trust_score": 38,
+            "trust_reasons": [
+              "Last modified more than 3 years ago",
+              "No owner identified",
+              "Contradicts a more recent document (DOC-004)"
+            ]
+          },
+          {
+            "id": "DOC-006",
+            "title": "Teams discussion - IBAN anti-fraud verification",
+            "type": "teams_discussion",
+            "file": "documents/DOC-006_teams_iban_fraud_verification.pdf",
+            "created_date": "2026-08-25",
+            "last_modified_date": "2026-08-25",
+            "owner_id": "OWN-005",
+            "country": "Belgium",
+            "trust_score": 74,
+            "trust_reasons": [
+              "Last modified less than 2 months ago",
+              "Owner identified",
+              "Informal source (Teams discussion)",
+              "Consistent with DOC-004"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "confidence_level": "high (or medium, acceptable)",
+        "documents_that_must_be_used": [
+          "DOC-004",
+          "DOC-006"
+        ],
+        "optional_documents": [],
+        "expected_contradictions": [
+          {
+            "between": [
+              "DOC-004",
+              "DOC-005"
+            ],
+            "subject": "deadline (5 working days vs 2) and signed form (mandatory vs not needed)",
+            "expected_resolution": "DOC-004 is retained because its score is much higher (86 vs 38) and DOC-005 is outdated with no owner"
+          }
+        ],
+        "key_points_of_the_answer": [
+          "deadline: at least 5 working days before the payroll date",
+          "form signed by the employee and the client's HR representative",
+          "call-back verification by the Compliance team within 2 working days (DOC-006)"
+        ],
+        "to_check": "The answer NEVER presents DOC-005's version as valid and clearly flags the disagreement."
+      }
+    },
+    {
+      "id": "insufficient_case",
+      "name": "Insufficient case: weak and irrelevant documents, the system must refuse to answer",
+      "input": {
+        "question": "What is the procedure for a Belgian client to switch from monthly to twice-monthly payroll?",
+        "documents": [
+          {
+            "id": "DOC-007",
+            "title": "Presentation - Pay cycles overview",
+            "type": "presentation",
+            "file": "documents/DOC-007_pay_cycles_overview_slides.pdf",
+            "created_date": "2022-03-01",
+            "last_modified_date": "2022-03-01",
+            "owner_id": null,
+            "country": "Belgium",
+            "trust_score": 44,
+            "trust_reasons": [
+              "Last modified more than 4 years ago",
+              "No owner identified",
+              "Very general content, does not cover changing the pay cycle"
+            ]
+          },
+          {
+            "id": "DOC-008",
+            "title": "Procedure Germany - Changing the pay cycle",
+            "type": "document",
+            "file": "documents/DOC-008_germany_pay_cycle_change.pdf",
+            "created_date": "2020-11-12",
+            "last_modified_date": "2020-11-12",
+            "owner_id": null,
+            "country": "Germany",
+            "trust_score": 27,
+            "trust_reasons": [
+              "Last modified more than 5 years ago",
+              "Applicable to Germany, not Belgium",
+              "No owner identified"
+            ]
+          },
+          {
+            "id": "DOC-009",
+            "title": "Notes - Customer feedback on pay cycles",
+            "type": "document",
+            "file": "documents/DOC-009_customer_feedback_pay_cycles.pdf",
+            "created_date": "2024-05-06",
+            "last_modified_date": "2024-05-06",
+            "owner_id": null,
+            "country": "Belgium",
+            "trust_score": 31,
+            "trust_reasons": [
+              "Last modified more than 2 years ago",
+              "No owner identified",
+              "Does not describe any procedure"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "confidence_level": "insufficient",
+        "documents_that_must_be_used": [],
+        "optional_documents": [],
+        "expected_contradictions": [],
+        "key_points_of_the_answer": [
+          "the system does NOT give a procedure",
+          "it explains why: low scores, no relevant Belgian document, DOC-008 is about Germany and outdated",
+          "it recommends contacting a manager or an expert (suggested expert: OWN-006)"
+        ],
+        "to_check": "The code guardrail (best score 44, below the threshold of 50) must block generation BEFORE calling the AI. The German procedure in DOC-008 must not be proposed as a solution."
+      }
+    }
+  ]
+}
