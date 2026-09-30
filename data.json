@@ -1,0 +1,76 @@
+{
+  "documents": [
+    {
+      "id": "doc_001",
+      "titre": "Calcul du pécule de vacances - Temps partiel (2026)",
+      "texte": "Pour un employé à temps partiel, le pécule de vacances est calculé sur base des prestations de l'année précédente (exercice d'indemnisation). En cas de changement de régime de travail (ex: diminution du temps de travail), un décompte de décembre (pécule de sortie) doit obligatoirement être effectué.",
+      "source": "procédure",
+      "date": "2026-03-15",
+      "auteur": "Sophie Peeters",
+      "pays": "Belgique"
+    },
+    {
+      "id": "doc_002",
+      "titre": "Note sur le pécule temps partiel",
+      "texte": "Le pécule de vacances des travailleurs à temps partiel est simplement calculé au prorata des heures de l'année en cours. Il n'est pas nécessaire de tenir compte des changements de régime de l'année précédente, et aucun décompte de sortie n'est à faire en décembre.",
+      "source": "note",
+      "date": "2018-06-10",
+      "auteur": "Marc Vandamme",
+      "pays": "Belgique"
+    },
+    {
+      "id": "doc_003",
+      "titre": "Discussion sur les congés payés temps partiel",
+      "texte": "N'oubliez pas que pour le temps partiel, l'indemnité de congés payés correspond à 10% de la rémunération brute totale perçue au cours de la période de référence. La règle du dixième s'applique strictement.",
+      "source": "Teams",
+      "date": "2025-11-20",
+      "auteur": "aucun",
+      "pays": "France"
+    },
+    {
+      "id": "doc_004",
+      "titre": "FAQ Congés - Temps partiel",
+      "texte": "Un travailleur à temps partiel a droit à des jours de congé proportionnels à son régime de travail. S'il travaille à 50% répartis sur 5 jours, il a droit à 20 demi-jours de congé légal.",
+      "source": "procédure",
+      "date": "2026-01-10",
+      "auteur": "Sophie Peeters",
+      "pays": "Belgique"
+    },
+    {
+      "id": "doc_005",
+      "titre": "Question double pécule",
+      "texte": "Quelqu'un sait si le double pécule est différent pour un mi-temps ? Oui, ça dépend s'il est fixe ou variable, il faut regarder la commission paritaire de l'employé.",
+      "source": "Teams",
+      "date": "2025-08-05",
+      "auteur": "Lise Leroy",
+      "pays": "Belgique"
+    },
+    {
+      "id": "doc_006",
+      "titre": "Prime de fin d'année vs Pécule",
+      "texte": "Attention à ne pas confondre le pécule de vacances et la prime de fin d'année. Pour un temps partiel, le double pécule de vacances est versé au moment de la prise principale des congés, généralement en mai ou juin.",
+      "source": "note",
+      "date": "2025-05-12",
+      "auteur": "Jan Janssen",
+      "pays": "Belgique"
+    },
+    {
+      "id": "doc_007",
+      "titre": "Changement d'horaire dans le système",
+      "texte": "En cas de changement d'horaire (ex: passage à temps partiel), le système RH doit être mis à jour avant le 15 du mois pour impacter correctement la paie du mois en cours.",
+      "source": "Teams",
+      "date": "2024-02-28",
+      "auteur": "aucun",
+      "pays": "Belgique"
+    },
+    {
+      "id": "doc_008",
+      "titre": "Maintien de salaire - temps partiel",
+      "texte": "La méthode du maintien de salaire est souvent plus avantageuse que la règle du dixième pour les temps partiels ayant effectué des heures complémentaires régulières.",
+      "source": "procédure",
+      "date": "2026-02-01",
+      "auteur": "Claire Dubois",
+      "pays": "France"
+    }
+  ]
+}
