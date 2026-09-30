@@ -31,3 +31,6 @@ Creativity 30%
 Technical ability 30%
 Fit 30%
 Security 10%
+
+To do at the end:  
+fragmentation of the project in many files in src.
