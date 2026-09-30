@@ -17,6 +17,8 @@ Pipeline
                  and resolve them with trust score + recency; unclear cases are flagged
 5. Aggregate   : keep the most relevant sentences of the reliable documents, merge duplicates
                  (redundant sources are listed together), drop sentences that lose a contradiction
+   Passage trust: each statement gets its own trust score (source score + corroboration bonus
+                 - staleness penalty); the answer is sorted by it and weak statements are flagged
 6. Confidence  : high / medium / low / insufficient
 7. Traceability: --explain DOC-001, or --interactive ("source 2", "doc DOC-001")
 
@@ -62,6 +64,9 @@ DEDUP_JACCARD = 0.70      # sentences at least this similar are the same informa
 CONTRA_JACCARD = 0.25     # topic similarity needed to compare two sentences
 NEGATION_JACCARD = 0.30   # similarity needed for negation-only conflicts
 MAX_PASSAGES = 12
+CORROBORATION_BONUS = 5   # trust bonus per additional document stating the same thing
+STALE_DAYS = 365          # a source not modified for longer than this (vs the newest source) is "stale"
+STALE_PENALTY = 10        # trust penalty applied to a stale source
 
 STOPWORDS = set("""
 a an the of to in on at for from by with and or but if then than that this these those is are was were be been being
@@ -244,6 +249,7 @@ class Passage:
     text: str
     relevance: float
     also_in: list[str] = field(default_factory=list)   # other documents stating the same thing
+    trust: int = 0                                      # passage-level trust (0-100), see passage_trust()
 
 
 @dataclass
@@ -413,6 +419,17 @@ def compute_confidence(used: list[Doc], contradictions: list[Contradiction], n_p
     return "low"
 
 
+def passage_trust(p: Passage, docs_by_id: dict[str, Doc], ref_day: date) -> int:
+    """Trust of ONE statement, not just of its document:
+    source score + bonus for each independent document that corroborates it
+    - penalty if the source is stale compared with the newest usable document."""
+    src = docs_by_id[p.doc_id]
+    trust = src.score + CORROBORATION_BONUS * len(set(p.also_in) - {p.doc_id})
+    if (ref_day - src.day).days > STALE_DAYS:
+        trust -= STALE_PENALTY
+    return max(0, min(100, trust))
+
+
 def llm_synthesis(question: str, passages: list[Passage]) -> str | None:
     try:
         import anthropic
@@ -503,6 +520,13 @@ def answer_case(case: dict, data_dir: Path, owners: dict, question: str | None =
     if len(passages) > MAX_PASSAGES:
         keep = sorted(passages, key=lambda p: -p.relevance)[:MAX_PASSAGES]
         passages = [p for p in passages if p in keep]
+    # Passage-level trust: the most reliable statements come first
+    if passages:
+        docs_by_id = {d.id: d for d in usable}
+        ref_day = max(d.day for d in usable)
+        for p in passages:
+            p.trust = passage_trust(p, docs_by_id, ref_day)
+        passages.sort(key=lambda p: (-p.trust, -p.relevance))
     used_ids = sorted({p.doc_id for p in passages} | {i for p in passages for i in p.also_in})
     used = [d for d in usable if d.id in used_ids]
     for d in usable:
@@ -519,7 +543,10 @@ def answer_case(case: dict, data_dir: Path, owners: dict, question: str | None =
     # --- Answer ------------------------------------------------------------------
     answer = llm_synthesis(question, passages) if use_llm else None
     if not answer:
-        answer = "\n".join(f"- {p.text} [{', '.join([p.doc_id] + p.also_in)}]" for p in passages)
+        answer = "\n".join(
+            f"- {p.text} [{', '.join([p.doc_id] + p.also_in)}] (trust {p.trust}"
+            + ("" if p.trust >= STRONG_SCORE else ", to verify") + ")"
+            for p in passages)
     if contradictions:
         answer += "\n\nDisagreements between sources:"
         for c in contradictions:
@@ -561,7 +588,7 @@ def print_result(r: Result, case: dict):
         print("\nSources:")
         for i, p in enumerate(r.passages, 1):
             ids = ", ".join([p.doc_id] + p.also_in)
-            print(f"  [{i}] {ids}")
+            print(f"  [{i}] {ids}  (passage trust {p.trust})")
     if r.contradictions:
         print("\nContradictions detected:")
         for c in r.contradictions:

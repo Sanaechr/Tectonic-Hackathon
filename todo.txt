@@ -1,4 +1,4 @@
-1. add AI of google an add an innovant concept  
+1. add an innovant concept  
 2. make sure all the tests pass  
 3. fragmentation of the code in src with (almost) single responsibilities  
 4. make sure all the tests pass   
