@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 6. understand the main lines of the code
+=======
+>>>>>>> 727d2f4b80d092a3f45a7b72faf2f5b5d1a88347
 7. do the aikido part
 8. film the video in english: explain user case, repo structure and the innovative concept, requirements.txt and run the program
 9. fill everything on the website  

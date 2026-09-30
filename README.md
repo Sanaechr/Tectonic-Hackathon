@@ -66,10 +66,40 @@ python -m venv .venv
 # 3. Install the dependencies
 pip install -r requirements.txt
 
+<<<<<<< HEAD
 # 4. Launch the app
 streamlit run app.py
 ```
 
+=======
+# 4. Go to the source folder
+cd src
+```
+
+Then run the program (the `--data` option points to the folder containing the test cases, owners and PDF documents):
+
+```powershell
+# Run all test cases
+python payroll_qa.py --data ../data
+
+# Run one specific case
+python payroll_qa.py --data ../data --case project_budget
+
+# Interactive mode: ask for details about the source of each statement
+python payroll_qa.py --data ../data --case project_budget --interactive
+
+# Ask your own question on a case
+python payroll_qa.py --data ../data --case project_budget --question "your question"
+
+# Output the result as JSON
+python payroll_qa.py --data ../data --json
+```
+
+If PowerShell blocks the activation script, run `Set-ExecutionPolicy -Scope Process Bypass` and try again.
+
+**Environment variables:** the default mode needs no API key. The optional LLM module (`llm.py`) needs one: copy `.env.example` to `.env` and fill in your key. Never commit `.env`.
+
+>>>>>>> 727d2f4b80d092a3f45a7b72faf2f5b5d1a88347
 If PowerShell blocks the activation script, run `Set-ExecutionPolicy -Scope Process Bypass` and try again.
 
 **Environment variables:** this version does not need any API key. If you add an LLM later, copy `.env.example` to `.env` and fill in your key. Never commit `.env`.
