@@ -1,7 +1,3 @@
-3. fragmentation of the code in src with (almost) single responsibilities  
-4. make sure all the tests pass   
-5. edit the readme with the innovative concept underlined  + piste améliorations
-6. understand the main lines of the code
 7. do the aikido part
 8. film the video in english: explain user case, repo structure and the innovative concept, requirements.txt and run the program
 9. fill everything on the website  
