@@ -1,0 +1,33 @@
+Use the technical partners to help to build 
+
+How to turn fragmented knowledge into trusted sharable resource
+Find, Understand, Trust
+
+Combined knowledge of people
+Problems:
+-> scattered
+-> duplicates
+-> outdated
+-> locked
+
+Turn that to informations that we can trust
+Build PoC to help employees find, understand what they need.
+
+-> easy to find, trust or share
+Only choose one and focus on it to build a solution
+
+what is reliable ? (trust)
+
+
+Delivrable:
+fill fields of informations
+short description 
+short demo video 
+Github repo link with a README (so not forget to put in public)
+screenshot of test on aikido platform
+
+Score:
+Creativity 30%
+Technical ability 30%
+Fit 30%
+Security 10%
